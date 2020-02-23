@@ -134,3 +134,77 @@ done
 ```
 
 ## Exercice 7. Statistiques
+
+2)
+```
+#!/bin/bash
+min=$1
+max=$1
+avr=0
+for arg
+do
+	if ! [[ "$arg" =~ ^[+-]?[0-9]?[0-9]+$|[+-]?100+$ ]]
+    then
+        echo "$arg n'est pas un nombre entre -100 et 100"
+        exit
+	fi
+	
+	avr=$(($avr+$arg))
+	
+	if [ $min -gt $arg ]
+	then
+		min=$arg
+	fi
+	
+	if [ $arg -gt $max ]
+	then
+		max=$arg
+	fi
+done
+	avr=$((avr/$#))
+	echo "moyenne= $avr"
+	echo "min= $min"
+	echo "max= $max"
+```
+3)
+```
+#!/bin/bash
+min=0
+max=0
+avr=0
+nbNombre=0
+echo "Saisissez un nombre :"
+while read var 
+do
+	if ! [[ "$var" =~ ^[+-]?[0-9]?[0-9]+$|[+-]?100+$ ]]
+    then
+        echo "$var n'est pas un nombre entre -100 et 100"
+        exit
+	fi
+	
+	avr=$(($avr+$var))
+	
+	if [ $min -gt $var ]
+	then
+		min=$var
+	fi
+	
+	if [ $var -gt $max ]
+	then
+		max=$var
+	fi
+	nbNombre=$(($nbNombre+1))
+	
+	echo "Encore un autre nombre (y/n)?"
+	read encore
+	if [ $encore == 'n' ] 
+	then
+		avr=$((avr/$nbNombre))
+		echo "moyenne= $avr"
+		echo "min= $min"
+		echo "max= $max"
+		exit
+	fi
+	echo "Saisissez un nombre :"
+done
+```
